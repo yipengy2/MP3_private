@@ -229,6 +229,9 @@ class Corpus(object):
             self.expectation_step()
             self.maximization_step(number_of_topics)
             self.calculate_likelihood(number_of_topics)
+            print(self.likelihoods[-1])
+            if abs(self.likelihoods[-1] - self.likelihoods[-2]) < epsilon:
+                break
 
 def main():
     documents_path = 'data/test.txt'
@@ -242,7 +245,7 @@ def main():
     max_iterations = 50
     epsilon = 0.001
     corpus.plsa(number_of_topics, max_iterations, epsilon)
-#
+
 
 
 if __name__ == '__main__':
