@@ -161,7 +161,7 @@ class Corpus(object):
             for word in range(self.vocabulary_size):
                 self.topic_word_prob[topic][word] = 0
                 for doc in range(self.number_of_documents):
-                    self.topic_word_prob[topic][word] += self.term_doc_matrix[topic][word] * self.topic_prob[doc][topic][word]
+                    self.topic_word_prob[topic][word] += self.term_doc_matrix[doc][word] * self.topic_prob[doc][topic][word]
         self.topic_word_prob = normalize(self.topic_word_prob)
         
         # update P(z | d)
@@ -230,7 +230,7 @@ class Corpus(object):
             self.maximization_step(number_of_topics)
             self.calculate_likelihood(number_of_topics)
             print(self.likelihoods[-1])
-            if abs(self.likelihoods[-1] - self.likelihoods[-2]) < epsilon:
+            if iteration >= 2 and abs(self.likelihoods[-1] - self.likelihoods[-2]) < epsilon:
                 break
 
 def main():
